@@ -6,6 +6,8 @@ import org.junit.*;
 import org.junit.rules.Timeout;
 import static org.junit.Assert.*;
 
+import java.beans.Transient;
+
 import proj1.Coinbank;
 
 public class CoinbankTest {
@@ -90,8 +92,59 @@ public class CoinbankTest {
 		assertEquals(0,c.remove(3,1));
 	}
 
-	public static void main(String[] args) {
-		org.junit.runner.JUnitCore.main("common.CoinbankTest");
-		System.out.println("All tests passed!");
+	@Test // check get invalid coins
+	public void testGet_invalidCoin()
+	{
+		Coinbank c = new Coinbank();
+		assertEquals(0,c.get(3)); // 3-cent coin is invalid
+		assertEquals(0,c.get(57)); // 7-cent coin is invalid
+		assertEquals(0,c.get(-1)); // 100-cent coin is invalid
+	}
+
+	@Test // check insert invalid coins
+	public void testInsert_invalidCoin()
+	{
+		Coinbank c = new Coinbank();
+		assertFalse(c.insert(3)); // 3-cent coin is invalid
+		assertFalse(c.insert(57)); // 7-cent coin is invalid
+		assertFalse(c.insert(-1)); // 100-cent coin is invalid
+	}
+
+	@Test // check remove invalid coins
+	public void testRemove_invalidCoin()
+	{
+		Coinbank c = new Coinbank();
+		assertEquals(0,c.remove(3,1)); // 3-cent coin is invalid
+		assertEquals(0,c.remove(57,1)); // 7-cent coin is invalid
+		assertEquals(0,c.remove(-1,1)); // 100-cent coin is invalid
+	}
+
+	@Test // check remove negative coins
+	public void testRemove_negativeCoins()
+	{
+		Coinbank c = makeBank(4,1,3,5);
+		assertEquals(0,c.remove(25,-1)); // negative coins should return 0
+		assertEquals(0,c.remove(10,-5)); // negative coins should return 0
+		assertEquals(0,c.remove(5,-2)); // negative coins should return 0
+		assertEquals(0,c.remove(1,-3)); // negative coins should return 0
+	}
+
+	@Test // check remove more coins than available
+	public void testRemove_moreThanAvailable()
+	{
+		Coinbank c = makeBank(4,1,3,5);
+		assertEquals(4,c.remove(1,10)); // only 4 pennies available
+		assertEquals(1,c.remove(5,10)); // only 1 nickel available
+		assertEquals(3,c.remove(10,10)); // only 3 dimes available
+		assertEquals(5,c.remove(25,10)); // only 5 quarters available
+		String expected = "The bank currently holds $0.00 consisting of \n0 pennies\n0 nickels\n0 dimes\n0 quarters\n";
+		assertEquals(expected,c.toString());
+	}
+
+	@Test // check toString with no coins
+	public void testToString_emptyBank() {
+		Coinbank c = new Coinbank();
+		String expected = "The bank currently holds $0.00 consisting of \n0 pennies\n0 nickels\n0 dimes\n0 quarters\n";
+		assertEquals(expected, c.toString());
 	}
 }

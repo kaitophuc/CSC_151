@@ -29,9 +29,9 @@ public class Coinbank {
 	 * Default constructor
 	 */
 	public Coinbank() {
-		holder = new int[COINTYPES];  // initialize holder array
+		holder = new int[COINTYPES];  // initialize holder array to hold 4 types of coins
 		for (int i = 0; i < COINTYPES; i++) {
-			holder[i] = 0;  // initialize all to 0
+			holder[i] = 0;  // initialize each type of coin to zero
 		}
 	}
 	
@@ -135,7 +135,7 @@ public class Coinbank {
 	 * @return number of coins that are actually removed
 	 */
 	public int remove(int coinType, int requestedCoins) {
-		if (!isBankable(coinType)) {
+		if (!isBankable(coinType) || requestedCoins < 0) {  // check if coin type is valid and requested coins is non-negative
 			return 0;  // invalid coin type
 		}
 		

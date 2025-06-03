@@ -7,27 +7,20 @@ package proj5;
  */
 
 public class GrammarChecker {
-    static final int threshold = 2; 
-    static final String DEFAULT_THESAURUS_FILE = "proj5/bigThesaurus.txt";
-    static final String DEFAULT_TEXT_FILE = "proj5/apartment.txt";
+    private final int threshold;
+    //static final String DEFAULT_THESAURUS_FILE = "/Users/minhphucnguyen/CSC_151/proj5/src/main/java/proj5/bigThesaurus.txt";
+    //static final String DEFAULT_TEXT_FILE = "/Users/minhphucnguyen/CSC_151/proj5/src/main/java/proj5/apartment.txt";
     private final Thesaurus thesaurus;
-    private final WordCounter wordCounter;
 
     /**
      * Default constructor that initializes the GrammarChecker with an empty thesaurus and word count tree.
      */
-    public GrammarChecker(String inputFile, String thesaurusFile) {
-        if (inputFile == null || inputFile.isEmpty()) {
-            throw new IllegalArgumentException("Input file cannot be null or empty");
-        }
+    public GrammarChecker(String thesaurusFile, int threshold) {
         if (thesaurusFile == null || thesaurusFile.isEmpty()) {
             throw new IllegalArgumentException("Thesaurus file cannot be null or empty");
         }
-        thesaurus = new Thesaurus(); 
-        wordCounter = new WordCounter(); 
- 
-        wordCounter.findFrequencies(inputFile);
-        thesaurus.loadThesaurus(thesaurusFile);
+        thesaurus = new Thesaurus(thesaurusFile);
+        this.threshold = threshold;
     }
 
     /**
@@ -79,6 +72,8 @@ public class GrammarChecker {
         if (textfile == null || textfile.isEmpty()) {
             throw new IllegalArgumentException("Text file cannot be null or empty");
         }
+        WordCounter wordCounter = new WordCounter();
+        wordCounter.findFrequencies(textfile);
         LineReader lineReader = new LineReader(textfile, " ");
         String ans = "";
         String[] words;
@@ -112,8 +107,7 @@ public class GrammarChecker {
      * @param args command line arguments
      */
     /*public static void main(String[] args) {
-        String inputFile = "/Users/minhphucnguyen/CSC_151/proj5/src/main/java/proj5/apartment.txt";
-        GrammarChecker grammarChecker = new GrammarChecker(inputFile, DEFAULT_THESAURUS_FILE);
-        grammarChecker.improveGrammar(inputFile);
+        GrammarChecker grammarChecker = new GrammarChecker(DEFAULT_THESAURUS_FILE, 2);
+        grammarChecker.improveGrammar(DEFAULT_TEXT_FILE);
     }*/
 }

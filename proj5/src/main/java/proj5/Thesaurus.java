@@ -17,6 +17,14 @@ public class Thesaurus {
     }
 
     /**
+     * Non default constructor
+     */
+    public Thesaurus (String fileName) {
+        synonyms = new BinarySearchTree<>();
+        loadThesaurus(fileName);
+    }
+
+    /**
      * Inserts a synonym into the thesaurus.
      * 
      * @param synonym the synonym to insert

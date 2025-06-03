@@ -7,7 +7,7 @@ package proj5;
  */
 
 public class WordCounter {
-    private final BinarySearchTree<String, Integer> wordCountTree; // Binary search tree to store word counts
+    private final BinarySearchTree<WordCounterNode> wordCountTree; // Binary search tree to store word counts
 
     /**
      * Default constructor that initializes an empty word counter.
@@ -47,11 +47,12 @@ public class WordCounter {
             for (String word : words) {
                 word = formatWord(word);
                 if (word != null && !word.isEmpty()) {
-                    BSTNode<String, Integer> node = wordCountTree.search(word);
+                    WordCounterNode wordNode = new WordCounterNode(word);
+                    BSTNode<WordCounterNode> node = wordCountTree.search(wordNode);
                     if (node != null) {
-                        node.value++;
+                        node.element.incrementCount();
                     } else {
-                        wordCountTree.insert(word, 1);
+                        wordCountTree.insert(wordNode);
                     }
                 }
             }
@@ -69,9 +70,10 @@ public class WordCounter {
         if (word == null || word.isEmpty()) {
             return 0;
         }
-        BSTNode<String, Integer> node = wordCountTree.search(word);
+        WordCounterNode wordNode = new WordCounterNode(word);
+        BSTNode<WordCounterNode> node = wordCountTree.search(wordNode);
         if (node != null) {
-            return node.value; 
+            return node.element.getCount();
         }
         return 0; 
     }
@@ -82,8 +84,7 @@ public class WordCounter {
     public String toString() {
         String ans = "";
         for (String word : wordCountTree.inOrderTraversal()) {
-            int count = getFrequency(word);
-            ans += word + ": " + count + "\n"; 
+            ans += word + ": " + wordCountTree.search(new WordCounterNode(word)).element.getCount() + "\n";
         }
         return ans;
     }

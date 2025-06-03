@@ -7,7 +7,7 @@ package proj5;
  */
 
 public class Thesaurus {
-    private BinarySearchTree<String, String[]> synonyms; // Binary search tree to store synonyms
+    private BinarySearchTree<ThesaurusNode> synonyms; // Binary search tree to store synonyms
 
     /**
      * Default constructor that initializes an empty thesaurus.
@@ -33,9 +33,10 @@ public class Thesaurus {
         if (synonym == null || synonym.length == 0 || key == null || key.isEmpty()) {
             return;
         }
-        BSTNode<String, String[]> existingNode = synonyms.search(key);
+        ThesaurusNode node = new ThesaurusNode(key, synonym);
+        BSTNode<ThesaurusNode> existingNode = synonyms.search(node);
         if (existingNode != null) {
-            String[] existingSynonyms = existingNode.value;
+            String[] existingSynonyms = existingNode.element.getSynonyms();
             String[] newSynonyms = new String[existingSynonyms.length + synonym.length];
             for (int i = 0; i < existingSynonyms.length; i++) {
                 newSynonyms[i] = existingSynonyms[i];
@@ -43,10 +44,12 @@ public class Thesaurus {
             for (int i = 0; i < synonym.length; i++) {
                 newSynonyms[existingSynonyms.length + i] = synonym[i];
             }
-            synonyms.insert(key, newSynonyms);
+            ThesaurusNode newNode = new ThesaurusNode(key, newSynonyms);
+            synonyms.insert(newNode);
         }
         else {
-            synonyms.insert(key, synonym);
+            ThesaurusNode newNode = new ThesaurusNode(key, synonym);
+            synonyms.insert(newNode);
         }
     }
 
@@ -56,9 +59,10 @@ public class Thesaurus {
      * @return an array of synonyms for the word, or null if no synonyms are found
      */
     private String[] getSynonyms(String word) {
-        BSTNode<String, String[]> node = synonyms.search(word);
+        ThesaurusNode getNode = new ThesaurusNode(word, null);
+        BSTNode<ThesaurusNode> node = synonyms.search(getNode);
         if (node != null) {
-            return node.value;
+            return node.element.getSynonyms();
         }
         return null; 
     }
@@ -89,7 +93,8 @@ public class Thesaurus {
         if (key == null || key.isEmpty()) {
             return;
         }
-        synonyms.delete(key);
+        ThesaurusNode getNode = new ThesaurusNode(key, null);
+        synonyms.delete(getNode);
     }
 
     /**
@@ -99,7 +104,8 @@ public class Thesaurus {
     public String toString() {
         String ans = "";
         for (String key : synonyms.inOrderTraversal()) {
-            String[] values = synonyms.search(key).value;
+            ThesaurusNode getNode = new ThesaurusNode(key, null);
+            String[] values = synonyms.search(getNode).element.getSynonyms();
             ans += key + " - {";
             for (int i = 0; i < values.length; i++) {
                 ans += values[i];

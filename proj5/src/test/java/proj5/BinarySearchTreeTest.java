@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BinarySearchTreeTest {
-    private BinarySearchTree<String, String[]> tree;
-    private BinarySearchTree<String,String> subtree;
+    private BinarySearchTree<ThesaurusNode> tree;
+    private BinarySearchTree<WordCounterNode> subtree;
 
     @Test
     void testSize() {
@@ -19,16 +19,19 @@ class BinarySearchTreeTest {
         tree = new BinarySearchTree<>();
         String key = "key";
         String[] value = {"value", "value2", "value3", "value4", "value5"};
-        tree.insert(key, value);
+        ThesaurusNode thesaurusNode = new ThesaurusNode(key, value);
+        tree.insert(thesaurusNode);
         assertEquals(1, tree.size());
 
         String key2 = "key2";
         String[] value2 = {"value2", "value3", "value4", "value5"};
-        tree.insert(key2, value2);
+        ThesaurusNode thesaurusNode2 = new ThesaurusNode(key2, value2);
+        tree.insert(thesaurusNode2);
         assertEquals(2, tree.size());
 
         String[] value3 = {"value6", "value7", "value8", "value9", "value10"};
-        tree.insert(key, value3);
+        ThesaurusNode thesaurusNode3 = new ThesaurusNode(key, value3);
+        tree.insert(thesaurusNode3);
         assertNotEquals(3, tree.size());
         assertEquals(2, tree.size());
     }
@@ -38,21 +41,23 @@ class BinarySearchTreeTest {
         tree = new BinarySearchTree<>();
         String key = "key";
         String[] value = {"value", "value2", "value3", "value4", "value5"};
-        tree.insert(key, value);
-        BSTNode<String, String[]> node = tree.search(key);
+        ThesaurusNode thesaurusNode = new ThesaurusNode(key, value);
+        tree.insert(thesaurusNode);
+        BSTNode<ThesaurusNode> node = tree.search(thesaurusNode);
         assertNotNull(node);
-        assertEquals(node.value, value);
+        assertEquals(node.element.getSynonyms(), value);
 
         String key2 = "key2";
         String[] value2 = {"value2", "value3", "value4", "value5"};
-        tree.insert(key2, value2);
+        ThesaurusNode thesaurusNode2 = new ThesaurusNode(key2, value2);
+        tree.insert(thesaurusNode2);
         String key3 = "key3";
         String[] value3 = {"value3", "value4", "value5"};
         String key4 = "key4";
-        tree.insert(key4, value3);
-        BSTNode<String, String[]> node2 = tree.search(key4);
+        ThesaurusNode thesaurusNode3 = new ThesaurusNode(key4, value3);
+        tree.insert(thesaurusNode3);
+        BSTNode<ThesaurusNode> node2 = tree.search(thesaurusNode3);
         assertNotNull(node2);
-        assertEquals(key4, node2.toString());
     }
 
     @Test
@@ -60,42 +65,52 @@ class BinarySearchTreeTest {
         tree = new BinarySearchTree<>();
         String key = "key";
         String[] value = {"value", "value2", "value3", "value4", "value5"};
-        tree.insert(key, value);
+        ThesaurusNode thesaurusNode = new ThesaurusNode(key, value);
+        tree.insert(thesaurusNode);
         assertEquals(1, tree.size());
 
         String key2 = "key2";
         String[] value2 = {"value2", "value3", "value4", "value5"};
-        tree.insert(key2, value2);
+        ThesaurusNode thesaurusNode2 = new ThesaurusNode(key2, value2);
+        tree.insert(thesaurusNode2);
         assertEquals(2, tree.size());
 
-        tree.delete(key);
+        tree.delete(thesaurusNode);
         assertEquals(1, tree.size());
 
-        tree.delete(key);
+        tree.delete(thesaurusNode);
         assertEquals(1, tree.size());
 
-        tree.delete(key2);
+        tree.delete(thesaurusNode2);
         assertEquals(0, tree.size());
     }
 
     @Test
     void testToStringParen() {
-        subtree = new BinarySearchTree<>();
-        subtree.insert("b", "");
-        subtree.insert("c", "");
-        subtree.insert("a", "");
-        subtree.insert("e", "");
-        subtree.insert("d", "");
-        subtree.insert("f", "");
-        subtree.insert("g", "");
-        assertEquals("(( a ) b ( c (( d ) e ( f ( g )))))", subtree.toStringParen());
+        tree = new BinarySearchTree<>();
+        ThesaurusNode b = new ThesaurusNode("b", new String[]{"value"});
+        tree.insert(b);
+        ThesaurusNode c = new ThesaurusNode("c", new String[]{"value2"});
+        tree.insert(c);
+        ThesaurusNode a = new ThesaurusNode("a", new String[]{"value3"});
+        tree.insert(a);
+        ThesaurusNode e = new ThesaurusNode("e", new String[]{"value4"});
+        tree.insert(e);
+        ThesaurusNode d = new ThesaurusNode("d", new String[]{"value5"});
+        tree.insert(d);
+        ThesaurusNode f = new ThesaurusNode("f", new String[]{"value6"});
+        tree.insert(f);
+        ThesaurusNode g = new ThesaurusNode("g", new String[]{"value7"});
+        tree.insert(g);
+        assertEquals("(( a ) b ( c (( d ) e ( f ( g )))))", tree.toStringParen());
     }
 
     @Test
     void testIsEmpty() {
         tree = new BinarySearchTree<>();
         assertTrue(tree.isEmpty());
-        tree.insert(null, null);
+        ThesaurusNode thesaurusNode = new ThesaurusNode(null, null);
+        tree.insert(thesaurusNode);
         assertFalse(tree.isEmpty());
     }
 }

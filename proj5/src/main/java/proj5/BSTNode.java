@@ -7,7 +7,7 @@ package proj5;
  * @version May 31st 2025, Spring 2025
  */
 
-public class BSTNode<K extends Comparable<K>, V> {
+public class BSTNode<K extends Comparable<K>, V> implements Comparable<BSTNode<K, V>> {
     public K element;
     public V value; 
     public BSTNode<K, V> llink;
@@ -29,5 +29,15 @@ public class BSTNode<K extends Comparable<K>, V> {
      */
     public String toString() {
         return element.toString();
+    }
+
+    /**
+     * Compares this node with another node based on the element.
+     * 
+     * @param other the other node to compare with
+     * @return a negative integer, zero, or a positive integer as this node is less than, equal to, or greater than the specified node
+     */
+    public int compareTo(BSTNode<K, V> other) {
+        return this.element.compareTo(other.element);
     }
 }

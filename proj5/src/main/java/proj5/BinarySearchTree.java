@@ -6,7 +6,7 @@ package proj5;
  * @version May 31st 2025, Spring 2025
  */
 
-public class BinarySearchTree<K extends Comparable<K>,V>
+public class BinarySearchTree<K extends Comparable<K>,V> implements Comparable<BinarySearchTree<K, V>>
 {
     private BSTNode<K, V> root; // root of the binary search tree
     private int size; // number of elements in the tree
@@ -212,5 +212,24 @@ public class BinarySearchTree<K extends Comparable<K>,V>
      */
     public String[] inOrderTraversal() {
         return inOrderTraversal(root);
+    }
+
+    /**
+     * Compares this binary search tree with another binary search tree.
+     * 
+     * @param other the other binary search tree to compare with
+     * @return a negative integer, zero, or a positive integer as this tree is less than, equal to, or greater than the specified tree
+     */
+    public int compareTo(BinarySearchTree<K, V> other) {
+        if (other == null) {
+            return 1; // this tree is greater than null
+        }
+        if (this.size < other.size) {
+            return -1; // this tree is less than other
+        } else if (this.size > other.size) {
+            return 1; // this tree is greater than other
+        } else {
+            return 0; // trees are equal in size
+        }
     }
 }

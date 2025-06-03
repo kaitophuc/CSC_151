@@ -7,9 +7,11 @@ package proj5;
  */
 
 public class GrammarChecker {
+    static String currentDir = System.getProperty("user.dir");
+    static final String DEFAULT_THESAURUS_FILE = currentDir + "/proj5/src/main/java/proj5/bigThesaurus.txt";
+    static final String DEFAULT_TEXT_FILE = currentDir + "/proj5/src/main/java/proj5/test1.txt";
+
     private final int threshold;
-    //static final String DEFAULT_THESAURUS_FILE = "/Users/minhphucnguyen/CSC_151/proj5/src/main/java/proj5/bigThesaurus.txt";
-    //static final String DEFAULT_TEXT_FILE = "/Users/minhphucnguyen/CSC_151/proj5/src/main/java/proj5/apartment.txt";
     private final Thesaurus thesaurus;
 
     /**
@@ -106,8 +108,8 @@ public class GrammarChecker {
      * Main method to run the GrammarChecker.
      * @param args command line arguments
      */
-    /*public static void main(String[] args) {
-        GrammarChecker grammarChecker = new GrammarChecker(DEFAULT_THESAURUS_FILE, 2);
+    public static void main(String[] args) {
+        GrammarChecker grammarChecker = new GrammarChecker(DEFAULT_THESAURUS_FILE, 6);
         grammarChecker.improveGrammar(DEFAULT_TEXT_FILE);
-    }*/
+    }
 }

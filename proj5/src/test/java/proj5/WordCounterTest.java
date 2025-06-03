@@ -6,10 +6,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WordCounterTest {
     private final WordCounter wordCounter = new WordCounter();
+    String currentDir = System.getProperty("user.dir");
 
     @Test
     void findFrequenciesAndFrequency() {
-        wordCounter.findFrequencies("/Users/minhphucnguyen/CSC_151/proj5/src/main/java/proj5/apartment.txt");
+        String filePath = currentDir + "/src/main/java/proj5/apartment.txt";
+        wordCounter.findFrequencies(filePath);
         assertEquals(5, wordCounter.getFrequency("grungy"));
         assertEquals(7, wordCounter.getFrequency("was"));
         assertNotEquals(3, wordCounter.getFrequency("grungy,"));
@@ -19,6 +21,8 @@ class WordCounterTest {
 
     @Test
     void testToString() {
+        String filePath = currentDir + "/src/main/java/proj5/apartment.txt";
+        wordCounter.findFrequencies(filePath);
         String ans = "--: 1\n" +
                 "all: 1\n" +
                 "and: 1\n" +
@@ -50,7 +54,6 @@ class WordCounterTest {
                 "where: 1\n" +
                 "would: 1\n" +
                 "year: 1\n";
-        wordCounter.findFrequencies("/Users/minhphucnguyen/CSC_151/proj5/src/main/java/proj5/apartment.txt");
         assertEquals(ans, wordCounter.toString());
     }
 }

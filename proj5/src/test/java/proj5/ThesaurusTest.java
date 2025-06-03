@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ThesaurusTest {
     private final Thesaurus thesaurus = new Thesaurus();
+    String currentDir = System.getProperty("user.dir");
 
     @Test
     void testInsert() {
@@ -75,7 +76,8 @@ class ThesaurusTest {
 
     @Test
     void testLoadSmallThesaurus() {
-        assertTrue(thesaurus.loadThesaurus("/Users/minhphucnguyen/CSC_151/proj5/src/main/java/proj5/smallThesaurus.txt"));
+        String dir = currentDir + "/src/main/java/proj5/smallThesaurus.txt";
+        assertTrue(thesaurus.loadThesaurus(dir));
         assertEquals(11, thesaurus.size());
         thesaurus.delete("terrific");
         assertEquals(10, thesaurus.size());
@@ -89,7 +91,8 @@ class ThesaurusTest {
 
     @Test
     void testLoadBigThesaurus() {
-        assertTrue(thesaurus.loadThesaurus("/Users/minhphucnguyen/CSC_151/proj5/src/main/java/proj5/bigThesaurus.txt"));
+        String dir = currentDir + "/src/main/java/proj5/bigThesaurus.txt";
+        assertTrue(thesaurus.loadThesaurus(dir));
         assertEquals(5006, thesaurus.size());
         thesaurus.delete("terrific");
         assertEquals(5005, thesaurus.size());

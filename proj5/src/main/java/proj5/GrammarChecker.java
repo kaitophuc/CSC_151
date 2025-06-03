@@ -1,4 +1,4 @@
-package proj_5;
+package proj5;
 
 /**
  * The GrammarChecker class provides functionality to improve grammar
@@ -8,9 +8,10 @@ package proj_5;
 
 public class GrammarChecker {
     static final int threshold = 2; 
-    static final String DEFAULT_THESAURUS_FILE = "proj_5/bigThesaurus.txt";
-    private Thesaurus thesaurus; 
-    private WordCounter wordCounter; 
+    static final String DEFAULT_THESAURUS_FILE = "proj5/bigThesaurus.txt";
+    static final String DEFAULT_TEXT_FILE = "proj5/apartment.txt";
+    private final Thesaurus thesaurus;
+    private final WordCounter wordCounter;
 
     /**
      * Default constructor that initializes the GrammarChecker with an empty thesaurus and word count tree.
@@ -36,7 +37,7 @@ public class GrammarChecker {
      */
     private String formatWord(String word) {
         if (word == null || word.isEmpty()) {
-            throw new IllegalArgumentException("Word cannot be null or empty");
+            return word;
         }
         String originalWord = word;
         word = word.toLowerCase();
@@ -58,7 +59,7 @@ public class GrammarChecker {
         if (word == null || word.isEmpty() || formattedWord == null || formattedWord.isEmpty()) {
             return word;
         }
-        String formatted = formatWord(word);
+        String formatted = word.toLowerCase();
         if (Character.isUpperCase(formattedWord.charAt(0))) {
             formatted = Character.toUpperCase(formatted.charAt(0)) + formatted.substring(1);
         }
@@ -101,10 +102,7 @@ public class GrammarChecker {
             }
             ans += "\n";
         }
-        ans = ans.trim(); 
-        if (ans.isEmpty()) {
-            throw new IllegalArgumentException("No valid words found in the text file");
-        }
+        ans = ans.trim();
         System.out.println(ans);
         lineReader.close();
     }
@@ -114,9 +112,8 @@ public class GrammarChecker {
      * @param args command line arguments
      */
     /*public static void main(String[] args) {
-        String inputFile = "proj5/apartment.txt";
-        String thesaurusFile = DEFAULT_THESAURUS_FILE;
-        GrammarChecker grammarChecker = new GrammarChecker(inputFile, thesaurusFile);
+        String inputFile = "/Users/minhphucnguyen/CSC_151/proj5/src/main/java/proj5/apartment.txt";
+        GrammarChecker grammarChecker = new GrammarChecker(inputFile, DEFAULT_THESAURUS_FILE);
         grammarChecker.improveGrammar(inputFile);
     }*/
 }

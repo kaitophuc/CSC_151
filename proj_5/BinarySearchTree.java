@@ -1,4 +1,4 @@
-package proj5;
+package proj_5;
 /**
  * The BinarySearchTree class represents a binary search tree (BST).
  * 

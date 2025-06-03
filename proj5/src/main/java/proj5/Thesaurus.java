@@ -1,4 +1,4 @@
-package proj_5;
+package proj5;
 /**
  * Thesaurus class allows adding synonyms and checking if a synonym exists in the thesaurus.
  * 
@@ -22,8 +22,8 @@ public class Thesaurus {
      * @param synonym the synonym to insert
      */
     public void insert(String key, String[] synonym)  {
-        if (synonym == null || synonym.length == 0) {
-            throw new IllegalArgumentException("Synonym cannot be null or empty");
+        if (synonym == null || synonym.length == 0 || key == null || key.isEmpty()) {
+            return;
         }
         BSTNode<String, String[]> existingNode = synonyms.search(key);
         if (existingNode != null) {
@@ -35,9 +35,11 @@ public class Thesaurus {
             for (int i = 0; i < synonym.length; i++) {
                 newSynonyms[existingSynonyms.length + i] = synonym[i];
             }
-            synonym = newSynonyms; 
+            synonyms.insert(key, newSynonyms);
         }
-        synonyms.insert(key, synonym);
+        else {
+            synonyms.insert(key, synonym);
+        }
     }
 
     /**
@@ -46,9 +48,6 @@ public class Thesaurus {
      * @return an array of synonyms for the word, or null if no synonyms are found
      */
     private String[] getSynonyms(String word) {
-        if (word == null || word.isEmpty()) {
-            throw new IllegalArgumentException("Word cannot be null or empty");
-        }
         BSTNode<String, String[]> node = synonyms.search(word);
         if (node != null) {
             return node.value;
@@ -63,7 +62,7 @@ public class Thesaurus {
      */
     public String getSynonymFor(String word) {
         if (word == null || word.isEmpty()) {
-            throw new IllegalArgumentException("Word cannot be null or empty");
+            return "";
         }
 
         String[] synonymsArray = getSynonyms(word);
@@ -80,7 +79,7 @@ public class Thesaurus {
      */
     public void delete(String key) {
         if (key == null || key.isEmpty()) {
-            throw new IllegalArgumentException("Key cannot be null or empty");
+            return;
         }
         synonyms.delete(key);
     }
@@ -137,5 +136,13 @@ public class Thesaurus {
         }
         lineReader.close();
         return true; 
+    }
+
+    /**
+     * Return size of the Thesaurus
+     * @return int
+     */
+    public int size() {
+        return synonyms.size();
     }
 }

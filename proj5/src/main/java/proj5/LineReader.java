@@ -1,4 +1,4 @@
-package proj_5;
+package proj5;
 
 import java.io.File;
 import java.io.FileNotFoundException;

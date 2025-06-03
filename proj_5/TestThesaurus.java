@@ -1,4 +1,4 @@
-package proj5;
+package proj_5;
 
 public class TestThesaurus {
     private Thesaurus thesaurus;
@@ -47,7 +47,7 @@ public class TestThesaurus {
     }
 
     public void testLoadThesaurus() {
-        thesaurus.loadThesaurus("proj5/smallThesaurus.txt");
+        thesaurus.loadThesaurus("proj_5/smallThesaurus.txt");
         if (thesaurus.isEmpty()) {
             System.out.println("Thesaurus is empty after loading.");
             return;

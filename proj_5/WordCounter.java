@@ -1,4 +1,4 @@
-package proj5;
+package proj_5;
 /**
  * WordCounter class allows adding word and checking the count of a word.
  * 

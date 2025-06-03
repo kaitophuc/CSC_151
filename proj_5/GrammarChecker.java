@@ -1,4 +1,4 @@
-package proj5;
+package proj_5;
 
 /**
  * The GrammarChecker class provides functionality to improve grammar
@@ -8,7 +8,7 @@ package proj5;
 
 public class GrammarChecker {
     static final int threshold = 2; 
-    static final String DEFAULT_THESAURUS_FILE = "proj5/bigThesaurus.txt"; 
+    static final String DEFAULT_THESAURUS_FILE = "proj_5/bigThesaurus.txt";
     private Thesaurus thesaurus; 
     private WordCounter wordCounter; 
 

@@ -1,4 +1,4 @@
-package proj_5;
+package proj5;
 /**
  * WordCounter class allows adding word and checking the count of a word.
  * 
@@ -7,7 +7,7 @@ package proj_5;
  */
 
 public class WordCounter {
-    private BinarySearchTree<String, Integer> wordCountTree; // Binary search tree to store word counts
+    private final BinarySearchTree<String, Integer> wordCountTree; // Binary search tree to store word counts
 
     /**
      * Default constructor that initializes an empty word counter.
@@ -23,7 +23,7 @@ public class WordCounter {
      */
     private String formatWord(String word) {
         if (word == null || word.isEmpty()) {
-            throw new IllegalArgumentException("Word cannot be null or empty");
+            return word;
         }
         String originalWord = word; // Store the original word for error messages
         word = word.toLowerCase();
@@ -36,23 +36,6 @@ public class WordCounter {
     }
 
     /**
-     * Inserts a word into the word counter or increments its count if it already exists.
-     * 
-     * @param word the word to insert or increment
-     */
-    private void findFrequencies(String word, int count) {
-        if (word == null || word.isEmpty()) {
-            throw new IllegalArgumentException("Word cannot be null or empty");
-        }
-        BSTNode<String, Integer> node = wordCountTree.search(word);
-        if (node != null) {
-            node.value++;
-        } else {
-            wordCountTree.insert(word, count);
-        }
-    }
-
-    /**
      * Adds words from file to the word counter.
      * 
      * @param word the word to add
@@ -62,10 +45,14 @@ public class WordCounter {
         String[] words;
         while ((words = lineReader.getNextLine()) != null) {
             for (String word : words) {
-                word = formatWord(word); 
-                // Check if the 
+                word = formatWord(word);
                 if (word != null && !word.isEmpty()) {
-                    findFrequencies(word, 1);
+                    BSTNode<String, Integer> node = wordCountTree.search(word);
+                    if (node != null) {
+                        node.value++;
+                    } else {
+                        wordCountTree.insert(word, 1);
+                    }
                 }
             }
         }
@@ -80,7 +67,7 @@ public class WordCounter {
      */
     public int getFrequency(String word) {
         if (word == null || word.isEmpty()) {
-            throw new IllegalArgumentException("Word cannot be null or empty");
+            return 0;
         }
         BSTNode<String, Integer> node = wordCountTree.search(word);
         if (node != null) {

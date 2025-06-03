@@ -1,4 +1,4 @@
-package org.example;
+package proj5;
 /**
  * The BinarySearchTree class represents a binary search tree (BST).
  * 
@@ -115,12 +115,15 @@ public class BinarySearchTree<K extends Comparable<K>,V>
             subroot.llink = delete(subroot.llink, elem);
         else if (elem.compareTo(subroot.element) > 0) 
             subroot.rlink = delete(subroot.rlink, elem);
-        else { 
-            size--;
-            if (subroot.llink == null) 
+        else {
+            if (subroot.llink == null)  {
+                size--;
                 return subroot.rlink;
-            else if (subroot.rlink == null) 
+            }
+            else if (subroot.rlink == null) {
+                size--;
                 return subroot.llink;
+            }
             else { 
                 BSTNode<K, V> minNode = findMin(subroot.rlink);
                 subroot.element = minNode.element; 
@@ -166,5 +169,35 @@ public class BinarySearchTree<K extends Comparable<K>,V>
      */
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    /**
+     * recursive helper for inOrderTraversal
+     * @param subroot root of subtree to start at
+     * @return string array of elements in this subtree in inorder
+     */
+    private String[] inOrderTraversal(BSTNode<K, V> subroot) {
+        if (subroot == null) {
+            return new String[0];
+        }
+        String[] left = inOrderTraversal(subroot.llink);
+        String[] right = inOrderTraversal(subroot.rlink);
+        String[] result = new String[left.length + 1 + right.length];
+        for (int i = 0; i < left.length; i++) {
+            result[i] = left[i];
+        }
+        result[left.length] = subroot.toString();
+        for (int i = 0; i < right.length; i++) {
+            result[left.length + 1 + i] = right[i];
+        }
+        return result;
+    }
+
+    /**
+     * inorder traversal of the tree
+     * @return string showing elements in inorder
+     */
+    public String[] inOrderTraversal() {
+        return inOrderTraversal(root);
     }
 }

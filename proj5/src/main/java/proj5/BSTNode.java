@@ -1,4 +1,4 @@
-package proj_5;
+package proj5;
 /**
  * The BSTNode class represents a node in a binary search tree (BST).
  * Each node contains an element, a link to its left child, and a link to its right child.
@@ -10,7 +10,7 @@ package proj_5;
 public class BSTNode<K extends Comparable<K>, V> {
     public K element;
     public V value; 
-    public BSTNode<K, V> llink; 
+    public BSTNode<K, V> llink;
     public BSTNode<K, V> rlink; 
 
     /**

@@ -1,4 +1,4 @@
-package proj5;
+package proj_5;
 /**
  * Thesaurus class allows adding synonyms and checking if a synonym exists in the thesaurus.
  * 

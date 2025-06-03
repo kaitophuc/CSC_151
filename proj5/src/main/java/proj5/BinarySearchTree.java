@@ -163,6 +163,19 @@ public class BinarySearchTree<K extends Comparable<K>,V>
     }
 
     /**
+     * Returns a string representation of the binary search tree.
+     * 
+     * @return a string representation of the tree
+     */
+    public String toString() {
+        String ans = "";
+        for (String elem : inOrderTraversal()) {
+            ans += elem + " : " + search((K) elem).value + "\n";
+        }
+        return ans.trim();
+    }
+
+    /**
      * Checks if the tree is empty.
      * 
      * @return true if the tree is empty, false otherwise

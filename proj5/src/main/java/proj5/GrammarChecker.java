@@ -66,7 +66,7 @@ public class GrammarChecker {
      * * @param textfile the file containing the text to improve
      * 
      */
-    public void improveGrammar(String textfile) {
+    public String improveGrammarFile(String textfile) {
         if (textfile == null || textfile.isEmpty()) {
             throw new IllegalArgumentException("Text file cannot be null or empty");
         }
@@ -96,7 +96,17 @@ public class GrammarChecker {
             ans += "\n";
         }
         ans = ans.trim();
-        System.out.println(ans);
         lineReader.close();
+        return ans;
+    }
+
+    /**
+     * Improves the grammar of the input file by checking for synonyms and word frequencies.
+     * * @param textfile the file containing the text to improve
+     * 
+     */
+    public void improveGrammar(String textfile) {
+        String improvedText = improveGrammarFile(textfile);
+        System.out.println(improvedText);
     }
 }

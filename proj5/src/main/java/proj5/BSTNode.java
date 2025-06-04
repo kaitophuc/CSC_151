@@ -7,10 +7,18 @@ package proj5;
  * @version May 31st 2025, Spring 2025
  */
 
+<<<<<<< HEAD
 public class BSTNode<E extends Comparable<E>> {
     public E element;
     public BSTNode<E> llink;
     public BSTNode<E> rlink; 
+=======
+public class BSTNode<K extends Comparable<K>, V> implements Comparable<BSTNode<K, V>> {
+    public K element;
+    public V value; 
+    public BSTNode<K, V> llink;
+    public BSTNode<K, V> rlink; 
+>>>>>>> 3083e9785baee6a2c9f8988aaef04a77dfb5751f
 
     /**
      * Default constructor that initializes the node with null links.
@@ -35,7 +43,11 @@ public class BSTNode<E extends Comparable<E>> {
      * @param other the other node to compare with
      * @return a negative integer, zero, or a positive integer as this node is less than, equal to, or greater than the specified node
      */
+<<<<<<< HEAD
     public int compareTo(BSTNode<E> other) {
+=======
+    public int compareTo(BSTNode<K, V> other) {
+>>>>>>> 3083e9785baee6a2c9f8988aaef04a77dfb5751f
         return this.element.compareTo(other.element);
     }
 }

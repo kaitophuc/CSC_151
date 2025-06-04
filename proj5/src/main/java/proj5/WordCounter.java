@@ -35,6 +35,11 @@ public class WordCounter {
         return word; 
     }
 
+    private BSTNode<WordCounterNode> search(String word) {
+        WordCounterNode wordNode = new WordCounterNode(word);
+        return wordCountTree.search(wordNode);
+    }
+
     /**
      * Adds words from file to the word counter.
      * 
@@ -47,12 +52,12 @@ public class WordCounter {
             for (String word : words) {
                 word = formatWord(word);
                 if (word != null && !word.isEmpty()) {
-                    WordCounterNode wordNode = new WordCounterNode(word);
-                    BSTNode<WordCounterNode> node = wordCountTree.search(wordNode);
+                    BSTNode<WordCounterNode> node = search(word);
                     if (node != null) {
                         node.element.incrementCount();
                     } else {
-                        wordCountTree.insert(wordNode);
+                        WordCounterNode wordCounterNode = new WordCounterNode(word);
+                        wordCountTree.insert(wordCounterNode);
                     }
                 }
             }
@@ -70,8 +75,7 @@ public class WordCounter {
         if (word == null || word.isEmpty()) {
             return 0;
         }
-        WordCounterNode wordNode = new WordCounterNode(word);
-        BSTNode<WordCounterNode> node = wordCountTree.search(wordNode);
+        BSTNode<WordCounterNode> node = search(word);
         if (node != null) {
             return node.element.getCount();
         }
@@ -84,7 +88,7 @@ public class WordCounter {
     public String toString() {
         String ans = "";
         for (String word : wordCountTree.inOrderTraversal()) {
-            ans += word + ": " + wordCountTree.search(new WordCounterNode(word)).element.getCount() + "\n";
+            ans += word + ": " + search(word).element.getCount() + "\n";
         }
         return ans;
     }

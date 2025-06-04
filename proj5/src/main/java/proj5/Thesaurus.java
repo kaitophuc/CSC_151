@@ -24,23 +24,6 @@ public class Thesaurus {
         loadThesaurus(fileName);
     }
 
-    private String[] sort(String[] synonymsArray) {
-        String[] sortedArray = new String[synonymsArray.length];
-        for (int i = 0; i < synonymsArray.length; i++) {
-            sortedArray[i] = synonymsArray[i];
-        }
-        for (int i = 0; i < sortedArray.length; i++) {
-            for (int j = i + 1; j < sortedArray.length; j++) {
-                if (sortedArray[i].compareTo(sortedArray[j]) > 0) {
-                    String temp = sortedArray[i];
-                    sortedArray[i] = sortedArray[j];
-                    sortedArray[j] = temp;
-                }
-            }
-        }
-        return sortedArray;
-    }
-
     /**
      * Inserts a synonym into the thesaurus.
      * 
@@ -61,13 +44,11 @@ public class Thesaurus {
             for (int i = 0; i < synonym.length; i++) {
                 newSynonyms[existingSynonyms.length + i] = synonym[i];
             }
-            newSynonyms = sort(newSynonyms);
             ThesaurusNode newNode = new ThesaurusNode(key, newSynonyms);
             synonyms.insert(newNode);
         }
         else {
-            ThesaurusNode newNode = new ThesaurusNode(key, synonym);
-            synonyms.insert(newNode);
+            synonyms.insert(node);
         }
     }
 

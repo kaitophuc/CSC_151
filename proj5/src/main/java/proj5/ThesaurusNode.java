@@ -1,4 +1,9 @@
 package proj5;
+/**
+ * ThesaurusNode class represents a node in a thesaurus that stores a word and its synonyms.
+ * @author Kaito Nguyen
+ * @version May 31st 2025, Spring 2025
+ */
 
 public class ThesaurusNode implements Comparable<ThesaurusNode> {
     private String word; // The word for which synonyms are stored

@@ -1,4 +1,9 @@
 package proj5;
+/**
+ * WordCounterNode class represents a node in a word counting system. 
+ * @author Kaito Nguyen
+ * @version May 31st 2025, Spring 2025
+ */
 
 public class WordCounterNode implements Comparable<WordCounterNode> {
     private final String word; // The word being counted

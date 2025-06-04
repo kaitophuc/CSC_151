@@ -196,7 +196,7 @@ public class BinarySearchTree<E extends Comparable<E>>
     }
 
     /**
-     * recursive helper for inOrderTraversal
+     * recursive helper for inOrderTraversal. toStringParen but returns string array
      * @param subroot root of subtree to start at
      * @return string array of elements in this subtree in inorder
      */

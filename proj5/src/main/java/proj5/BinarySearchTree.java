@@ -46,7 +46,7 @@ public class BinarySearchTree<E extends Comparable<E>>
             subroot.rlink = insert(subroot.rlink, elem);
         } 
         else { 
-            subroot = elem;
+            subroot.element = elem.element;
         }
         return subroot; 
     }
@@ -149,6 +149,7 @@ public class BinarySearchTree<E extends Comparable<E>>
         if (elem == null) {
             throw new IllegalArgumentException("Element cannot be null");
         }
+        if (search(elem) == null) return;
         BSTNode<E> node = new BSTNode<>(elem);
         root = delete(root, node);
     }

@@ -1,0 +1,3 @@
+very,extremely,intensely
+little,small,tiny
+good,great
